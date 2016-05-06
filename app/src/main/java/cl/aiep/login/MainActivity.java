@@ -13,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -31,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.pantalla)TextView       pantalla;
     @BindView(R.id.progressBar)ProgressBar progressBar;
     @BindView(R.id.usuario) EditText        textoUsuario;
+
+    private final int RANDOM_1 = 1;
+    private final int RANDOM_2 = 2;
+    private final int RANDOM_3 = 3;
+
+    private final int CLAVE_ABDON = 10;
+    private final int CLAVE_SEBA = 12;
+    private final int CLAVE_YALE = 14;
+    private final int CLAVE_ROBER = 16;
+    private final int CLAVE_GRIN = 18;
 
     private int     passwordUsuario;
     private int     passwordSistema;
@@ -65,31 +77,31 @@ public class MainActivity extends AppCompatActivity {
     public void seleccionado(View view) {
         switch (view.getId()){
             case R.id.btn1:
-                obtenerValorVerificar(btn1, 1);
+                obtenerValorVerificar(btn1, RANDOM_1);
                 break;
             case R.id.btn2:
-                obtenerValorVerificar(btn2, 2);
+                obtenerValorVerificar(btn2, RANDOM_2);
                 break;
             case R.id.btn3:
-                obtenerValorVerificar(btn3, 3);
+                obtenerValorVerificar(btn3, RANDOM_3);
                 break;
             case R.id.btn4:
-                obtenerValorVerificar(btn4, 3);
+                obtenerValorVerificar(btn4, RANDOM_3);
                 break;
             case R.id.btn5:
-                obtenerValorVerificar(btn5, 2);
+                obtenerValorVerificar(btn5, RANDOM_2);
                 break;
             case R.id.btn6:
-                obtenerValorVerificar(btn6, 1);
+                obtenerValorVerificar(btn6, RANDOM_1);
                 break;
             case R.id.btn7:
-                obtenerValorVerificar(btn7, 2);
+                obtenerValorVerificar(btn7, RANDOM_2);
                 break;
             case R.id.btn8:
-                obtenerValorVerificar(btn8, 3);
+                obtenerValorVerificar(btn8, RANDOM_3);
                 break;
             case R.id.btn9:
-                obtenerValorVerificar(btn9, 1);
+                obtenerValorVerificar(btn9, RANDOM_1);
                 break;
         }
     }
@@ -101,18 +113,18 @@ public class MainActivity extends AppCompatActivity {
     private void obtenerValorVerificar(TextView view, int randomer) {
         escribirNumerosPantalla(view);
         passwordUsuario = passwordUsuario + Integer.parseInt(view.getText().toString());
-        if (passwordUsuario == passwordSistema) logueado();
+        if (passwordUsuario == passwordSistema) loguear();
         else if (passwordUsuario > passwordSistema) cerrar();
         else randomizer(2 * randomer);
     }
 
     private void escribirNumerosPantalla(TextView view){
         String textoPantalla = "";
-        textoPantalla =   pantalla.getText().toString() + view.getText().toString();
+        textoPantalla = pantalla.getText().toString() + view.getText().toString();
         pantalla.setText(textoPantalla);
     }
 
-    private void logueado() {
+    private void loguear() {
         Logueado logueado = new Logueado();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -133,53 +145,17 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(r, 1000);
     }
 
-    private void randomizer(int numero){
-        switch (numero){
+    private void randomizer(int opcionRandom){
+        switch (opcionRandom){
             case 2:
-                random1();
+                Random.random1(armarArrayBotones());
                 break;
             case 4:
-                random2();
+                Random.random2(armarArrayBotones());
                 break;
             case 6:
-                random3();
+                Random.random3(armarArrayBotones());
         }
-    }
-
-    private void random3() {
-        btn1.setText("3");
-        btn2.setText("5");
-        btn3.setText("2");
-        btn4.setText("9");
-        btn5.setText("4");
-        btn6.setText("6");
-        btn7.setText("8");
-        btn8.setText("7");
-        btn9.setText("1");
-    }
-
-    private void random2() {
-        btn1.setText("1");
-        btn2.setText("4");
-        btn3.setText("5");
-        btn4.setText("8");
-        btn5.setText("3");
-        btn6.setText("6");
-        btn7.setText("2");
-        btn8.setText("9");
-        btn9.setText("7");
-    }
-
-    private void random1() {
-        btn1.setText("8");
-        btn2.setText("6");
-        btn3.setText("1");
-        btn4.setText("7");
-        btn5.setText("9");
-        btn6.setText("4");
-        btn7.setText("2");
-        btn8.setText("5");
-        btn9.setText("3");
     }
 
     public void salir(View view) {
@@ -198,19 +174,19 @@ public class MainActivity extends AppCompatActivity {
         else {
             switch (usuario){
                 case "abdon":
-                    desbloqueo("Bienvenido Abdon, ingrese codigo acceso", 10);
+                    desbloqueo("Bienvenido Abdon, ingrese codigo acceso", CLAVE_ABDON);
                     break;
                 case "Sebastian":
-                    desbloqueo("Bienvenido Sebastian, ingrese codigo acceso", 12);
+                    desbloqueo("Bienvenido Sebastian, ingrese codigo acceso", CLAVE_SEBA);
                     break;
                 case "Yaleni":
-                    desbloqueo("Bienvenida Yaleni, ingrese codigo acceso", 14);
+                    desbloqueo("Bienvenida Yaleni, ingrese codigo acceso", CLAVE_YALE);
                     break;
                 case "Roberto":
-                    desbloqueo("Bienvenido Roberto, ingrese codigo acceso", 16);
+                    desbloqueo("Bienvenido Roberto, ingrese codigo acceso", CLAVE_ROBER);
                     break;
                 case "":
-                    desbloqueo("Bienvenido Gringraz, sistema desbloqueado", 18);
+                    desbloqueo("Bienvenido Gringraz, sistema desbloqueado", CLAVE_GRIN);
                     desbloquearBotonera(true);
                     break;
                 default:
@@ -236,5 +212,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void trampita(View view) {
         trampa = true;
+    }
+
+    private ArrayList<TextView> armarArrayBotones(){
+        ArrayList<TextView> botones =  new ArrayList<>();
+        botones.add(btn1);
+        botones.add(btn2);
+        botones.add(btn3);
+        botones.add(btn4);
+        botones.add(btn5);
+        botones.add(btn6);
+        botones.add(btn7);
+        botones.add(btn8);
+        botones.add(btn9);
+        return botones;
     }
 }
