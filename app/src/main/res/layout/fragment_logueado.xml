@@ -1,0 +1,18 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/fondo_gradiente"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cl.aiep.login.Logueado">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#FFF"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:text="LOGUEADO!" />
+
+</FrameLayout>

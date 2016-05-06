@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/fondo_gradiente"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="cl.aiep.login.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        style="@style/Botonera"
+        android:text="1"
+        android:id="@+id/btn1"
+        android:onClick="seleccionado"
+        android:layout_alignTop="@+id/btn2"
+        android:layout_toStartOf="@+id/btn2" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="2"
+        android:id="@+id/btn2"
+        android:onClick="seleccionado"
+        android:layout_marginLeft="@dimen/margenes_botonera"
+        android:layout_marginRight="@dimen/margenes_botonera"
+        android:layout_above="@+id/btn5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="3"
+        android:id="@+id/btn3"
+        android:onClick="seleccionado"
+        android:layout_alignTop="@+id/btn2"
+        android:layout_toEndOf="@+id/btn2" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="4"
+        android:id="@+id/btn4"
+        android:onClick="seleccionado"
+        android:layout_marginTop="@dimen/margenes_botonera"
+        android:layout_marginBottom="@dimen/margenes_botonera"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/btn8" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="5"
+        android:id="@+id/btn5"
+        android:onClick="seleccionado"
+        android:layout_marginLeft="@dimen/margenes_botonera"
+        android:layout_marginRight="@dimen/margenes_botonera"
+        android:layout_marginTop="@dimen/margenes_botonera"
+        android:layout_marginBottom="@dimen/margenes_botonera"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="6"
+        android:id="@+id/btn6"
+        android:onClick="seleccionado"
+        android:layout_marginTop="@dimen/margenes_botonera"
+        android:layout_marginBottom="@dimen/margenes_botonera"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/btn5" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="7"
+        android:id="@+id/btn7"
+        android:onClick="seleccionado"
+        android:layout_alignTop="@+id/btn8"
+        android:layout_toStartOf="@+id/btn8" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="8"
+        android:id="@+id/btn8"
+        android:onClick="seleccionado"
+        android:layout_marginLeft="@dimen/margenes_botonera"
+        android:layout_marginRight="@dimen/margenes_botonera"
+        android:layout_below="@+id/btn5"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        style="@style/Botonera"
+        android:text="9"
+        android:id="@+id/btn9"
+        android:onClick="seleccionado"
+        android:layout_alignTop="@+id/btn8"
+        android:layout_toEndOf="@+id/btn8" />
+</RelativeLayout>
