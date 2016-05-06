@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         };
-        Toast.makeText(MainActivity.this, "PERMISO DENEGADO", Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "ACCESO DENEGADO", Toast.LENGTH_LONG).show();
         handler.postDelayed(r, 1000);
     }
 
