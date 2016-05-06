@@ -9,8 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,15 +31,18 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn7) TextView btn7;
     @BindView(R.id.btn8) TextView btn8;
     @BindView(R.id.btn9) TextView btn9;
+    @BindView(R.id.pantalla) TextView pantalla;
 
     int passwordUsuario;
+    String textoPantalla = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
     }
 
@@ -45,39 +52,47 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.btn1:
                 btn1.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn1, 1);
                 break;
             case R.id.btn2:
                 btn2.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn2, 2);
                 break;
             case R.id.btn3:
                 btn3.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn3, 3);
                 break;
             case R.id.btn4:
                 btn4.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn4, 3);
                 break;
             case R.id.btn5:
-                btn5.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn5, 2);
                 break;
             case R.id.btn6:
                 btn6.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn6, 1);
                 break;
             case R.id.btn7:
                 btn7.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn7, 2);
                 break;
             case R.id.btn8:
                 btn8.setPressed(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn8, 3);
                 break;
             case R.id.btn9:
                 btn9.setPressed(true);
                 btn9.setSelected(true);
+                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn9, 1);
                 break;
         }
@@ -89,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
         if (passwordUsuario == PASSWORD_SISTEMA) logueado();
         else if (passwordUsuario > PASSWORD_SISTEMA) cerrar();
         else random(2 * randomer);
+    }
+
+    private void escribirNumerosPantalla(TextView view){
+        textoPantalla = "";
+        textoPantalla =   pantalla.getText().toString() + view.getText().toString();
+        pantalla.setText(textoPantalla);
     }
 
     private void cerrar() {
@@ -110,28 +131,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.container, logueado);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void random(int numero){
@@ -186,5 +185,10 @@ public class MainActivity extends AppCompatActivity {
     public void salir(View view) {
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    public void reiniciar(View view) {
+        passwordUsuario = 0;
+        pantalla.setText("");
     }
 }

@@ -26,6 +26,7 @@
         style="@style/Botonera"
         android:text="2"
         android:id="@+id/btn2"
+        android:background="@drawable/fondo_boton"
         android:onClick="seleccionado"
         android:layout_marginLeft="@dimen/margenes_botonera"
         android:layout_marginRight="@dimen/margenes_botonera"
@@ -97,4 +98,35 @@
         android:onClick="seleccionado"
         android:layout_alignTop="@+id/btn8"
         android:layout_toEndOf="@+id/btn8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:text="Reiniciar"
+        android:gravity="center"
+        android:onClick="reiniciar"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/fondo_boton"
+        android:id="@+id/btnReiniciar"
+        android:textSize="20sp"
+        android:textColor="#BFffffff"
+        android:textStyle="bold"
+        android:layout_alignStart="@+id/btn7"
+        android:layout_below="@+id/btn7"
+        android:layout_alignEnd="@+id/btn9" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:onClick="reiniciar"
+        android:background="@drawable/fondo_pantalla"
+        android:id="@+id/pantalla"
+        android:textSize="25sp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginBottom="4dp"
+        android:layout_above="@+id/btn1"
+        android:layout_alignStart="@+id/btn1"
+        android:layout_alignEnd="@+id/btn3" />
 </RelativeLayout>
