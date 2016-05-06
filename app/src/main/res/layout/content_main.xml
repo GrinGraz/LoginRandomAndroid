@@ -101,7 +101,7 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:text="Reiniciar"
         android:gravity="center"
         android:onClick="reiniciar"
@@ -129,4 +129,34 @@
         android:layout_above="@+id/btn1"
         android:layout_alignStart="@+id/btn1"
         android:layout_alignEnd="@+id/btn3" />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:text=""
+        android:onClick="leerHuella"
+        android:background="@drawable/fondo_boton"
+        android:id="@+id/lectorHuella"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    "
+        android:padding="10dp"
+        android:onClick="trampita"
+        android:id="@+id/trampa"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/progressBar"
+        android:visibility="invisible"
+        android:layout_alignBottom="@+id/lectorHuella"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

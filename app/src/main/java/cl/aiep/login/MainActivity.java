@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,19 +18,22 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.btn1) TextView btn1;
-    @BindView(R.id.btn2) TextView btn2;
-    @BindView(R.id.btn3) TextView btn3;
-    @BindView(R.id.btn4) TextView btn4;
-    @BindView(R.id.btn5) TextView btn5;
-    @BindView(R.id.btn6) TextView btn6;
-    @BindView(R.id.btn7) TextView btn7;
-    @BindView(R.id.btn8) TextView btn8;
-    @BindView(R.id.btn9) TextView btn9;
-    @BindView(R.id.pantalla) TextView pantalla;
+    @BindView(R.id.btn1)    TextView    btn1;
+    @BindView(R.id.btn2)    TextView    btn2;
+    @BindView(R.id.btn3)    TextView    btn3;
+    @BindView(R.id.btn4)    TextView    btn4;
+    @BindView(R.id.btn5)    TextView    btn5;
+    @BindView(R.id.btn6)    TextView    btn6;
+    @BindView(R.id.btn7)    TextView    btn7;
+    @BindView(R.id.btn8)    TextView    btn8;
+    @BindView(R.id.btn9)    TextView    btn9;
+    @BindView(R.id.pantalla)TextView    pantalla;
+    @BindView(R.id.progressBar)ProgressBar progressBar;
 
-    int passwordUsuario;
-    String textoPantalla = "";
+    private int passwordUsuario;
+    private int passworSistema;
+    private int lecturas;
+    private boolean trampa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +43,19 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        bloquearBotonera(false);
+    }
+
+    private void bloquearBotonera(boolean estado){
+        btn1.setEnabled(estado);
+        btn2.setEnabled(estado);
+        btn3.setEnabled(estado);
+        btn4.setEnabled(estado);
+        btn5.setEnabled(estado);
+        btn6.setEnabled(estado);
+        btn7.setEnabled(estado);
+        btn8.setEnabled(estado);
+        btn9.setEnabled(estado);
     }
 
     @OnClick({ R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5,
@@ -52,64 +64,59 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.btn1:
                 btn1.setPressed(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn1, 1);
                 break;
             case R.id.btn2:
                 btn2.setPressed(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn2, 2);
                 break;
             case R.id.btn3:
                 btn3.setPressed(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn3, 3);
                 break;
             case R.id.btn4:
                 btn4.setPressed(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn4, 3);
                 break;
             case R.id.btn5:
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn5, 2);
                 break;
             case R.id.btn6:
-                btn6.setPressed(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn6, 1);
                 break;
             case R.id.btn7:
-                btn7.setPressed(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn7, 2);
                 break;
             case R.id.btn8:
-                btn8.setPressed(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn8, 3);
                 break;
             case R.id.btn9:
-                btn9.setPressed(true);
-                btn9.setSelected(true);
-                escribirNumerosPantalla((TextView) view);
                 obtenerValorVerificar(btn9, 1);
                 break;
         }
     }
 
     private void obtenerValorVerificar(TextView view, int randomer) {
+        escribirNumerosPantalla(view);
         passwordUsuario = passwordUsuario + Integer.parseInt(view.getText().toString());
-        int PASSWORD_SISTEMA = 16;
-        if (passwordUsuario == PASSWORD_SISTEMA) logueado();
-        else if (passwordUsuario > PASSWORD_SISTEMA) cerrar();
-        else random(2 * randomer);
+        if (passwordUsuario == passworSistema) logueado();
+        else if (passwordUsuario > passworSistema) cerrar();
+        else randomizer(2 * randomer);
     }
 
     private void escribirNumerosPantalla(TextView view){
-        textoPantalla = "";
+        String textoPantalla = "";
         textoPantalla =   pantalla.getText().toString() + view.getText().toString();
         pantalla.setText(textoPantalla);
+    }
+
+    private void logueado() {
+        Logueado logueado = new Logueado();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.replace(R.id.container, logueado);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void cerrar() {
@@ -124,16 +131,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(r, 1000);
     }
 
-    private void logueado() {
-        Logueado logueado = new Logueado();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.replace(R.id.container, logueado);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    private void random(int numero){
+    private void randomizer(int numero){
         switch (numero){
             case 2:
                 random1();
@@ -190,5 +188,48 @@ public class MainActivity extends AppCompatActivity {
     public void reiniciar(View view) {
         passwordUsuario = 0;
         pantalla.setText("");
+    }
+
+    public void leerHuella(View view) {
+        if (!trampa) desbloqueo("Desbloquee sistema", 0);
+        else {
+            switch (lecturas){
+                case 1:
+                    desbloqueo("Bienvenido Abdon, ingrese codigo acceso", 10);
+                    break;
+                case 2:
+                    desbloqueo("Bienvenido Sebastian, ingrese codigo acceso", 12);
+                    break;
+                case 3:
+                    desbloqueo("Bienvenida Yaleni, ingrese codigo acceso", 14);
+                    break;
+                case 4:
+                    desbloqueo("Bienvenido Roberto, ingrese codigo acceso", 15);
+                    break;
+                default:
+                    desbloqueo("Bienvenido Gringraz, sistema desbloqueado", 16);
+                    bloquearBotonera(true);
+                    break;
+            }
+        }
+    }
+
+    private void desbloqueo(final String mensaje, final int claveUsuarioSistema){
+        final Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                progressBar.setVisibility(View.INVISIBLE);
+                Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
+                passworSistema = claveUsuarioSistema;
+                if (trampa) lecturas++;
+            }
+        };
+        progressBar.setVisibility(View.VISIBLE);
+        handler.postDelayed(r, 2000);
+    }
+
+    public void trampita(View view) {
+        trampa = true;
     }
 }
