@@ -4,7 +4,6 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -33,11 +32,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.progressBar)ProgressBar progressBar;
     @BindView(R.id.usuario) EditText        textoUsuario;
 
-    private int passwordUsuario;
-    private int passworSistema;
-    private int lecturas;
+    private int     passwordUsuario;
+    private int     passwordSistema;
     private boolean trampa;
-    private String usuario;
+    private String  usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        bloquearBotonera(false);
+        desbloquearBotonera(false);
     }
 
-    private void bloquearBotonera(boolean estado){
+    private void desbloquearBotonera(boolean estado){
         btn1.setEnabled(estado);
         btn2.setEnabled(estado);
         btn3.setEnabled(estado);
@@ -67,19 +65,15 @@ public class MainActivity extends AppCompatActivity {
     public void seleccionado(View view) {
         switch (view.getId()){
             case R.id.btn1:
-                btn1.setPressed(true);
                 obtenerValorVerificar(btn1, 1);
                 break;
             case R.id.btn2:
-                btn2.setPressed(true);
                 obtenerValorVerificar(btn2, 2);
                 break;
             case R.id.btn3:
-                btn3.setPressed(true);
                 obtenerValorVerificar(btn3, 3);
                 break;
             case R.id.btn4:
-                btn4.setPressed(true);
                 obtenerValorVerificar(btn4, 3);
                 break;
             case R.id.btn5:
@@ -107,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
     private void obtenerValorVerificar(TextView view, int randomer) {
         escribirNumerosPantalla(view);
         passwordUsuario = passwordUsuario + Integer.parseInt(view.getText().toString());
-        if (passwordUsuario == passworSistema) logueado();
-        else if (passwordUsuario > passworSistema) cerrar();
+        if (passwordUsuario == passwordSistema) logueado();
+        else if (passwordUsuario > passwordSistema) cerrar();
         else randomizer(2 * randomer);
     }
 
@@ -217,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "":
                     desbloqueo("Bienvenido Gringraz, sistema desbloqueado", 18);
-                    bloquearBotonera(true);
+                    desbloquearBotonera(true);
                     break;
                 default:
                     desbloqueo("Usuario no existe", -1);
@@ -233,8 +227,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
-                passworSistema = claveUsuarioSistema;
-                if (trampa) lecturas++;
+                passwordSistema = claveUsuarioSistema;
             }
         };
         progressBar.setVisibility(View.VISIBLE);
