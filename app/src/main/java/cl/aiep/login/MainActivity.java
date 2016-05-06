@@ -1,15 +1,14 @@
 package cl.aiep.login;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,53 +45,65 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.btn1:
                 btn1.setPressed(true);
-                obtenerValor(btn1, 1);
+                obtenerValorVerificar(btn1, 1);
                 break;
             case R.id.btn2:
                 btn2.setPressed(true);
-                obtenerValor(btn2, 2);
+                obtenerValorVerificar(btn2, 2);
                 break;
             case R.id.btn3:
                 btn3.setPressed(true);
-                obtenerValor(btn3, 3);
+                obtenerValorVerificar(btn3, 3);
                 break;
             case R.id.btn4:
                 btn4.setPressed(true);
-                obtenerValor(btn4, 3);
+                obtenerValorVerificar(btn4, 3);
                 break;
             case R.id.btn5:
                 btn5.setPressed(true);
-                obtenerValor(btn5, 2);
+                obtenerValorVerificar(btn5, 2);
                 break;
             case R.id.btn6:
                 btn6.setPressed(true);
-                obtenerValor(btn6, 1);
+                obtenerValorVerificar(btn6, 1);
                 break;
             case R.id.btn7:
                 btn7.setPressed(true);
-                obtenerValor(btn7, 2);
+                obtenerValorVerificar(btn7, 2);
                 break;
             case R.id.btn8:
                 btn8.setPressed(true);
-                obtenerValor(btn8, 3);
+                obtenerValorVerificar(btn8, 3);
                 break;
             case R.id.btn9:
                 btn9.setPressed(true);
                 btn9.setSelected(true);
-                obtenerValor(btn9, 1);
+                obtenerValorVerificar(btn9, 1);
                 break;
         }
     }
 
-    private void obtenerValor(TextView view, int randomer) {
+    private void obtenerValorVerificar(TextView view, int randomer) {
         passwordUsuario = passwordUsuario + Integer.parseInt(view.getText().toString());
         int PASSWORD_SISTEMA = 16;
         if (passwordUsuario == PASSWORD_SISTEMA) logueado();
+        else if (passwordUsuario > PASSWORD_SISTEMA) cerrar();
         else random(2 * randomer);
     }
 
+    private void cerrar() {
+        final Handler handler = new Handler();
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                finish();
+            }
+        };
+        Toast.makeText(MainActivity.this, "PERMISO DENEGADO", Toast.LENGTH_LONG).show();
+        handler.postDelayed(r, 1000);
+    }
+
     private void logueado() {
-        //Toast.makeText(MainActivity.this, "LOGUEADO", Toast.LENGTH_LONG).show();
         Logueado logueado = new Logueado();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
@@ -170,5 +181,10 @@ public class MainActivity extends AppCompatActivity {
         btn7.setText("2");
         btn8.setText("5");
         btn9.setText("3");
+    }
+
+    public void salir(View view) {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

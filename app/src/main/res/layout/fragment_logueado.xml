@@ -15,4 +15,18 @@
         android:textSize="25sp"
         android:text="LOGUEADO!" />
 
+    <TextView
+        android:id="@+id/btnSalir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|bottom"
+        android:textColor="#FFF"
+        android:textSize="16sp"
+        android:onClick="salir"
+        android:layout_marginBottom="10dp"
+        android:padding="15dp"
+        android:text="Salir"
+        android:layout_gravity="center_horizontal|bottom" />
+
+
 </FrameLayout>
