@@ -4,10 +4,12 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,13 +29,15 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.btn7)    TextView    btn7;
     @BindView(R.id.btn8)    TextView    btn8;
     @BindView(R.id.btn9)    TextView    btn9;
-    @BindView(R.id.pantalla)TextView    pantalla;
+    @BindView(R.id.pantalla)TextView       pantalla;
     @BindView(R.id.progressBar)ProgressBar progressBar;
+    @BindView(R.id.usuario) EditText        textoUsuario;
 
     private int passwordUsuario;
     private int passworSistema;
     private int lecturas;
     private boolean trampa;
+    private String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
                 obtenerValorVerificar(btn9, 1);
                 break;
         }
+    }
+
+    private void obtenerUsuario(){
+        usuario = textoUsuario.getText().toString();
     }
 
     private void obtenerValorVerificar(TextView view, int randomer) {
@@ -191,24 +199,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void leerHuella(View view) {
+        obtenerUsuario();
         if (!trampa) desbloqueo("Desbloquee sistema", 0);
         else {
-            switch (lecturas){
-                case 1:
+            switch (usuario){
+                case "abdon":
                     desbloqueo("Bienvenido Abdon, ingrese codigo acceso", 10);
                     break;
-                case 2:
+                case "Sebastian":
                     desbloqueo("Bienvenido Sebastian, ingrese codigo acceso", 12);
                     break;
-                case 3:
+                case "Yaleni":
                     desbloqueo("Bienvenida Yaleni, ingrese codigo acceso", 14);
                     break;
-                case 4:
-                    desbloqueo("Bienvenido Roberto, ingrese codigo acceso", 15);
+                case "Roberto":
+                    desbloqueo("Bienvenido Roberto, ingrese codigo acceso", 16);
+                    break;
+                case "":
+                    desbloqueo("Bienvenido Gringraz, sistema desbloqueado", 18);
+                    bloquearBotonera(true);
                     break;
                 default:
-                    desbloqueo("Bienvenido Gringraz, sistema desbloqueado", 16);
-                    bloquearBotonera(true);
+                    desbloqueo("Usuario no existe", -1);
                     break;
             }
         }
