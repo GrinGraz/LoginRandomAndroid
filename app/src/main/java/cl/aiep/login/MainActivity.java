@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
     private final int RANDOM_1 = 1;
     private final int RANDOM_2 = 2;
     private final int RANDOM_3 = 3;
+    private final int RANDOM_4 = 4;
+    private final int RANDOM_5 = 5;
+    private final int RANDOM_6 = 6;
+    private final int RANDOM_7 = 7;
+    private final int RANDOM_8 = 8;
+    private final int RANDOM_9 = 9;
 
     private final int CLAVE_ABDON = 10;
     private final int CLAVE_SEBA = 12;
@@ -86,22 +92,22 @@ public class MainActivity extends AppCompatActivity {
                 obtenerValorVerificar(btn3, RANDOM_3);
                 break;
             case R.id.btn4:
-                obtenerValorVerificar(btn4, RANDOM_3);
+                obtenerValorVerificar(btn4, RANDOM_4);
                 break;
             case R.id.btn5:
-                obtenerValorVerificar(btn5, RANDOM_2);
+                obtenerValorVerificar(btn5, RANDOM_5);
                 break;
             case R.id.btn6:
-                obtenerValorVerificar(btn6, RANDOM_1);
+                obtenerValorVerificar(btn6, RANDOM_6);
                 break;
             case R.id.btn7:
-                obtenerValorVerificar(btn7, RANDOM_2);
+                obtenerValorVerificar(btn7, RANDOM_7);
                 break;
             case R.id.btn8:
-                obtenerValorVerificar(btn8, RANDOM_3);
+                obtenerValorVerificar(btn8, RANDOM_8);
                 break;
             case R.id.btn9:
-                obtenerValorVerificar(btn9, RANDOM_1);
+                obtenerValorVerificar(btn9, RANDOM_9);
                 break;
         }
     }
@@ -152,9 +158,29 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 Random.random2(armarArrayBotones());
+
                 break;
             case 6:
                 Random.random3(armarArrayBotones());
+                break;
+            case 8:
+                Random.random4(armarArrayBotones());
+                break;
+            case 10:
+                Random.random5(armarArrayBotones());
+                break;
+            case 12:
+                Random.random6(armarArrayBotones());
+                break;
+            case 14:
+                Random.random7(armarArrayBotones());
+                break;
+            case 16:
+                Random.random8(armarArrayBotones());
+                break;
+            case 18:
+                Random.random9(armarArrayBotones());
+                break;
         }
     }
 
@@ -176,13 +202,13 @@ public class MainActivity extends AppCompatActivity {
                 case "abdon":
                     desbloqueo("Bienvenido Abdon, ingrese codigo acceso", CLAVE_ABDON);
                     break;
-                case "Sebastian":
+                case "sebastian":
                     desbloqueo("Bienvenido Sebastian, ingrese codigo acceso", CLAVE_SEBA);
                     break;
-                case "Yaleni":
+                case "yaleni":
                     desbloqueo("Bienvenida Yaleni, ingrese codigo acceso", CLAVE_YALE);
                     break;
-                case "Roberto":
+                case "roberto":
                     desbloqueo("Bienvenido Roberto, ingrese codigo acceso", CLAVE_ROBER);
                     break;
                 case "":
