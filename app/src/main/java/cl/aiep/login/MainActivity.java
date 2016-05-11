@@ -2,8 +2,11 @@ package cl.aiep.login;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.pantalla)TextView       pantalla;
     @BindView(R.id.progressBar)ProgressBar progressBar;
     @BindView(R.id.usuario) EditText        textoUsuario;
+    @BindView(R.id.cordinatorLayout) CoordinatorLayout cordinatorLayout;
 
     private final int RANDOM_1 = 1;
     private final int RANDOM_2 = 2;
@@ -80,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick({ R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5,
             R.id.btn6, R.id.btn7, R.id.btn8, R.id.btn9 })
-    public void seleccionado(View view) {
+    public void pulsarBoton(View view) {
         switch (view.getId()){
             case R.id.btn1:
                 obtenerValorVerificar(btn1, RANDOM_1);
@@ -147,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         };
-        Toast.makeText(MainActivity.this, "ACCESO DENEGADO", Toast.LENGTH_LONG).show();
+        Snackbar.make(cordinatorLayout, "ACCESO DENEGADO", Snackbar.LENGTH_LONG)
+                .show();
         handler.postDelayed(r, 1000);
     }
 
@@ -158,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 Random.random2(armarArrayBotones());
-
                 break;
             case 6:
                 Random.random3(armarArrayBotones());
@@ -189,51 +193,56 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void reiniciar(View view) {
+    public void reiniciarAcceso(View view) {
         passwordUsuario = 0;
         pantalla.setText("");
     }
 
     public void leerHuella(View view) {
         obtenerUsuario();
-        if (!trampa) desbloqueo("Desbloquee sistema", 0);
+        if (!trampa) desbloquearUsuario("SISTEMA BLOQUEADO", 0);
         else {
             switch (usuario){
                 case "abdon":
-                    desbloqueo("Bienvenido Abdon, ingrese codigo acceso", CLAVE_ABDON);
+                    desbloquearUsuario("Bienvenido Abdon, ingrese codigo acceso", CLAVE_ABDON);
                     break;
                 case "sebastian":
-                    desbloqueo("Bienvenido Sebastian, ingrese codigo acceso", CLAVE_SEBA);
+                    desbloquearUsuario("Bienvenido Sebastian, ingrese codigo acceso", CLAVE_SEBA);
                     break;
                 case "yaleni":
-                    desbloqueo("Bienvenida Yaleni, ingrese codigo acceso", CLAVE_YALE);
+                    desbloquearUsuario("Bienvenida Yaleni, ingrese codigo acceso", CLAVE_YALE);
                     break;
                 case "roberto":
-                    desbloqueo("Bienvenido Roberto, ingrese codigo acceso", CLAVE_ROBER);
+                    desbloquearUsuario("Bienvenido Roberto, ingrese codigo acceso", CLAVE_ROBER);
                     break;
                 case "":
-                    desbloqueo("Bienvenido Gringraz, sistema desbloqueado", CLAVE_GRIN);
-                    desbloquearBotonera(true);
+                    desbloquearUsuario("SISTEMA DESBLOQUEADO", CLAVE_GRIN);
                     break;
                 default:
-                    desbloqueo("Usuario no existe", -1);
+                    desbloquearUsuario("Usuario no existe", -1);
                     break;
             }
         }
     }
 
-    private void desbloqueo(final String mensaje, final int claveUsuarioSistema){
+    private void desbloquearUsuario(final String mensaje, final int claveUsuarioSistema){
         final Handler handler = new Handler();
 
         final Runnable r = new Runnable() {
             public void run() {
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
+                Snackbar snackbar = Snackbar.make(cordinatorLayout, mensaje, Snackbar.LENGTH_SHORT);
+                View sbView = snackbar.getView();
+                TextView textoSnackBar = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                if (mensaje.contains("SISTEMA BLOQUEADO")) textoSnackBar.setTextColor(Color.RED);
+                else textoSnackBar.setTextColor(Color.GREEN);
+                snackbar.show();
                 passwordSistema = claveUsuarioSistema;
+                desbloquearBotonera(true);
             }
         };
         progressBar.setVisibility(View.VISIBLE);
-        handler.postDelayed(r, 2000);
+        handler.postDelayed(r, 1000);
     }
 
     public void trampita(View view) {
